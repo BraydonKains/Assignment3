@@ -20,7 +20,7 @@ using std::map;
 using std::pair;
 
 enum KEYS {
-	KEYUP, KEYDOWN, KEYSPACE, KEYCTRL, KEYH, KEYM, KEYESC
+	KEYUP, KEYDOWN, KEYLEFT, KEYRIGHT, KEYSPACE, KEYCTRL, KEYH, KEYM, KEYESC
 };
 
 GameScreen::GameScreen(std::map<std::string, ALLEGRO_BITMAP*> _sprites, std::map<std::string, ALLEGRO_SAMPLE*> _samples) {
@@ -30,8 +30,9 @@ GameScreen::GameScreen(std::map<std::string, ALLEGRO_BITMAP*> _sprites, std::map
 }
 
 //Resets game to default values, and uses new given values
-void GameScreen::reset(int _lines, int _max_catchers, int _difficulty) {
-	
+void GameScreen::reset() {
+	ship.set_sprite(sprites["Ship"]);
+	ship.reset_pos(SCREEN_W / 2, SCREEN_H / 8);
 }
 
 //If a sample needs to be played while it is still being played, it will be stopped first.
@@ -50,7 +51,7 @@ void GameScreen::run(ALLEGRO_FONT* font) {
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
 
 	ALLEGRO_TIMER* timer = NULL;
-	timer = al_create_timer(1.0 / FPS); //Universally a "tick" in the context of the game is 1/10 of a second.
+	timer = al_create_timer(1.0 / FPS);
 	al_register_event_source(event_queue, al_get_timer_event_source(timer));
 
 	redraw(font);
@@ -64,10 +65,40 @@ void GameScreen::run(ALLEGRO_FONT* font) {
 	while (!exit_screen) {
 		ALLEGRO_EVENT ev;
 		al_wait_for_event(event_queue, &ev);
-		if (ev.type == ALLEGRO_EVENT_TIMER) {
+		if (ev.type == ALLEGRO_EVENT_TIMER) { //Check per frame
 			if (keys[KEYUP]) {
-				//Up is pressed!
+				if (keys[KEYRIGHT]) {
+					ship.move(UR);
+				}
+				else if (keys[KEYLEFT]) {
+					ship.move(UL);
+				}
+				else {
+					ship.move(U);
+				}
 			}
+			else if (keys[KEYDOWN]) {
+				if (keys[KEYRIGHT]) {
+					ship.move(DR);
+				}
+				else if (keys[KEYLEFT]) {
+					ship.move(DL);
+				}
+				else {
+					ship.move(D);
+				}
+			}
+			else if (keys[KEYLEFT]) {
+				ship.move(L);
+			}
+			else if (keys[KEYRIGHT]) {
+				ship.move(R);
+			}
+
+			//Global refresh
+			al_clear_to_color(al_map_rgb(0, 0, 0));
+			redraw(font);
+			al_flip_display();
 		}
 		if (ev.type == ALLEGRO_EVENT_KEY_DOWN) {
 			switch (ev.keyboard.keycode) {
@@ -76,6 +107,12 @@ void GameScreen::run(ALLEGRO_FONT* font) {
 				break;
 			case ALLEGRO_KEY_UP:
 				keys[KEYUP] = true;
+				break;
+			case ALLEGRO_KEY_RIGHT:
+				keys[KEYRIGHT] = true;
+				break;
+			case ALLEGRO_KEY_LEFT:
+				keys[KEYLEFT] = true;
 				break;
 			case ALLEGRO_KEY_SPACE:
 				keys[KEYSPACE] = true;
@@ -94,36 +131,38 @@ void GameScreen::run(ALLEGRO_FONT* font) {
 				keys[KEYCTRL] = true;
 				break;
 			}
-			if (ev.type == ALLEGRO_EVENT_KEY_UP) {
-				switch (ev.keyboard.keycode) {
-				case ALLEGRO_KEY_DOWN:
-					keys[KEYDOWN] = false;
-					break;
-				case ALLEGRO_KEY_UP:
-					keys[KEYUP] = false;
-					break;
-				case ALLEGRO_KEY_SPACE:
-					keys[KEYSPACE] = false;
-					break;
-				case ALLEGRO_KEY_M:
-					keys[KEYM] = false;
-					break;
-				case ALLEGRO_KEY_H:
-					keys[KEYH] = false;
-					break;
-				case ALLEGRO_KEY_ESCAPE:
-					keys[KEYESC] = false;
-					break;
-				case ALLEGRO_KEY_LCTRL:
-				case ALLEGRO_KEY_RCTRL:
-					keys[KEYCTRL] = false;
-					break;
-				}
+		}
+		else if (ev.type == ALLEGRO_EVENT_KEY_UP) {
+			switch (ev.keyboard.keycode) {
+			case ALLEGRO_KEY_DOWN:
+				keys[KEYDOWN] = false;
+				break;
+			case ALLEGRO_KEY_UP:
+				keys[KEYUP] = false;
+				break;
+			case ALLEGRO_KEY_RIGHT:
+				keys[KEYRIGHT] = false;
+				break;
+			case ALLEGRO_KEY_LEFT:
+				keys[KEYLEFT] = false;
+				break;
+			case ALLEGRO_KEY_SPACE:
+				keys[KEYSPACE] = false;
+				break;
+			case ALLEGRO_KEY_M:
+				keys[KEYM] = false;
+				break;
+			case ALLEGRO_KEY_H:
+				keys[KEYH] = false;
+				break;
+			case ALLEGRO_KEY_ESCAPE:
+				keys[KEYESC] = false;
+				break;
+			case ALLEGRO_KEY_LCTRL:
+			case ALLEGRO_KEY_RCTRL:
+				keys[KEYCTRL] = false;
+				break;
 			}
-			//Global refresh
-			al_clear_to_color(al_map_rgb(0, 0, 0));
-			redraw(font);
-			al_flip_display();
 		}
 	}
 	if (next_state != Exit) { //If the game loop was exited naturally rather than forced by Esc
@@ -137,7 +176,7 @@ void GameScreen::run(ALLEGRO_FONT* font) {
 
 //Redraw all elements of the screen
 void GameScreen::redraw(ALLEGRO_FONT* font) {
-
+	ship.draw();
 }
 
 void GameScreen::back() {

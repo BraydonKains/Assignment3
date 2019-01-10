@@ -64,12 +64,14 @@ void StartScreen::run(ALLEGRO_FONT * font) {
 void StartScreen::redraw(ALLEGRO_FONT* font) {
 	//al_draw_bitmap(sprites["Title"], SCREEN_W / 2 - 240, 20, NULL); //logo
 	
-	//Instructions
-	al_draw_text(font, al_map_rgb(255, 255, 255), SCREEN_W / 2, SCREEN_H / 2 + 10, ALLEGRO_ALIGN_CENTER, "Mr. Manager wants to run a teambuilding exercise for his employees.");
-	al_draw_text(font, al_map_rgb(255, 255, 255), SCREEN_W / 2, SCREEN_H / 2 + 20, ALLEGRO_ALIGN_CENTER, "Help Mr.Manager place his 5 catchers at the end of his");
-	al_draw_text(font, al_map_rgb(255, 255, 255), SCREEN_W / 2, SCREEN_H / 2 + 30, ALLEGRO_ALIGN_CENTER, "conveyor belts to make sure no other employees fall off.");
-	al_draw_text(font, al_map_rgb(255, 255, 255), SCREEN_W / 2, SCREEN_H / 2 + 40, ALLEGRO_ALIGN_CENTER, "Try to catch enough to help the team bond!");
 
+	//Instructions
+	al_draw_text(font, al_map_rgb(255, 255, 255), SCREEN_W / 2, SCREEN_H / 2 + 10, ALLEGRO_ALIGN_CENTER, "This is going to be a shootemup.");
+	al_draw_text(font, al_map_rgb(255, 255, 255), SCREEN_W / 2, SCREEN_H / 2 + 20, ALLEGRO_ALIGN_CENTER, "Eventually.");
+	al_draw_text(font, al_map_rgb(255, 255, 255), SCREEN_W / 2, SCREEN_H / 2 + 30, ALLEGRO_ALIGN_CENTER, "We'll see.");
+	al_draw_text(font, al_map_rgb(255, 255, 255), SCREEN_W / 2, SCREEN_H / 2 + 40, ALLEGRO_ALIGN_CENTER, "idek.");
+	
+	/*
 	//Keys and their associated functions
 	al_draw_bitmap(sprites["KeyUp"], SCREEN_W / 8, SCREEN_H / 2 + 60, NULL);
 	al_draw_bitmap(sprites["KeyUp"], SCREEN_W / 8 + 34, SCREEN_H / 2 + 60, ALLEGRO_FLIP_VERTICAL);
@@ -92,6 +94,7 @@ void StartScreen::redraw(ALLEGRO_FONT* font) {
 	al_draw_text(font, al_map_rgb(255, 255, 255), SCREEN_W / 2 + 70, SCREEN_H / 2 + 110, ALLEGRO_ALIGN_LEFT, "+");
 	al_draw_bitmap(sprites["KeyM"], SCREEN_W / 2 + 78, SCREEN_H / 2 + 100, NULL);
 	al_draw_text(font, al_map_rgb(255, 255, 255), SCREEN_W / 2 + 113, SCREEN_H / 1.3 - 20, ALLEGRO_ALIGN_LEFT, "Toggle Music");
+	*/
 
 	al_draw_text(font, al_map_rgb(255, 255, 255), 0, SCREEN_H - 10, ALLEGRO_ALIGN_LEFT, "Copyright 2019 Braydon Kains");
 }

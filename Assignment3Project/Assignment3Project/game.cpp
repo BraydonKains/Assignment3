@@ -1,6 +1,4 @@
 #include "game.h"
-#include "start_screen.h"
-#include "game_screen.h"
 
 using std::string;
 using std::map;
@@ -13,12 +11,13 @@ Game::Game() {
 void Game::init() {
 	score = 0;
 	state = Start;
-	//sprites.insert(pair<string, ALLEGRO_BITMAP*>("Title", al_load_bitmap("logo.bmp")));
+	sprites.insert(pair<string, ALLEGRO_BITMAP*>("Ship", al_load_bitmap("placeholder.bmp")));
 
 
 	//al_reserve_samples(4);
 	//samples.insert(pair<string, ALLEGRO_SAMPLE*>("Theme", al_load_sample("rasputin.wav")));
 
+	
 
 	font = al_create_builtin_font();
 }
@@ -30,7 +29,22 @@ void Game::reset() {
 //Run the game state machine
 void Game::run() {
 	//Load screens
+	StartScreen start_screen(sprites);
+	GameScreen game_screen(sprites, samples);
 
+	while (state != Exit) {
+		switch (state) {
+		case Start:
+			start_screen.run(font);
+			state = start_screen.next_state;
+			break;
+		case Gameplay:
+			game_screen.reset();
+			game_screen.run(font);
+			state = start_screen.next_state;
+			break;
+		}
+	}
 
 	//Garbage collection
 	map<string, ALLEGRO_BITMAP*>::iterator it;

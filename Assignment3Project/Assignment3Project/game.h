@@ -11,7 +11,8 @@
 #include <map>
 
 #include "enums.h"
-#include "screen.h"
+#include "start_screen.h"
+#include "game_screen.h"
 
 //Game state machine, contains data global to game
 class Game {

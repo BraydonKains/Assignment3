@@ -27,6 +27,9 @@ int main() {
 	if (!al_install_keyboard()) {
 		fprintf(stderr, "Could not install keyboard!");
 	}
+	if (!al_init_primitives_addon()) {
+		fprintf(stderr, "Could not initialize primitives addon!");
+	}
 
 	ALLEGRO_DISPLAY* display = NULL;
 	display = al_create_display(SCREEN_W, SCREEN_H);
