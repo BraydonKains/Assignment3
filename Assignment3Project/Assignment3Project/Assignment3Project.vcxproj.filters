@@ -54,6 +54,12 @@
     <ClInclude Include="ship.h">
       <Filter>Header Files\Assignment3</Filter>
     </ClInclude>
+    <ClInclude Include="game_element.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="bullet.h">
+      <Filter>Header Files\Assignment3</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -71,8 +77,11 @@
     <ClCompile Include="start_screen.cpp">
       <Filter>Source Files\ScreensImplement</Filter>
     </ClCompile>
+    <ClCompile Include="bullet.cpp">
+      <Filter>Source Files\Assignment3Implement</Filter>
+    </ClCompile>
     <ClCompile Include="ship.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Assignment3Implement</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -135,15 +135,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="bullet.h" />
     <ClInclude Include="cursor.h" />
     <ClInclude Include="enums.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="game_element.h" />
     <ClInclude Include="game_screen.h" />
     <ClInclude Include="screen.h" />
     <ClInclude Include="ship.h" />
     <ClInclude Include="start_screen.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="bullet.cpp" />
     <ClCompile Include="cursor.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="game_screen.cpp" />
