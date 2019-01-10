@@ -8,9 +8,7 @@ using std::string;
 
 StartScreen::StartScreen(std::map<std::string, ALLEGRO_BITMAP*> _sprites) {
 	vector<string> menu_options;
-	menu_options.push_back("Easy"); //Select Difficulty
-	menu_options.push_back("Medium");
-	menu_options.push_back("Hard");
+	menu_options.push_back("Start"); //Start game
 	menu_options.push_back("Quit"); //Quit game
 	menu.activate(menu_options);
 
@@ -44,13 +42,8 @@ void StartScreen::run(ALLEGRO_FONT * font) {
 				menu.down();
 				break;
 			case ALLEGRO_KEY_SPACE:
-				if (ctrl) { //If the ctrl key is held regardless of option, they will enter EXTREME easter egg mode
-					next_state = EXTREME;
-				}
-				else {
-					cont(); //Otherwise select the menu item
-				}
-
+				//Select item
+				cont();
 				exit_screen = true;
 				break;
 			case ALLEGRO_KEY_ESCAPE:
@@ -58,18 +51,9 @@ void StartScreen::run(ALLEGRO_FONT * font) {
 				back();
 				exit_screen = true;
 				break;
-			case ALLEGRO_KEY_LCTRL:
-			case ALLEGRO_KEY_RCTRL:
-				ctrl = true; //ctrl is held down
-				break;
 			}
 			redraw(font);
 			al_flip_display();
-		}
-		if (ev.type == ALLEGRO_EVENT_KEY_UP) {
-			if (ev.keyboard.keycode == ALLEGRO_KEY_LCTRL || ev.keyboard.keycode == ALLEGRO_KEY_RCTRL) {
-				ctrl = false; //ctrl is released
-			}
 		}
 	}
 
@@ -78,12 +62,8 @@ void StartScreen::run(ALLEGRO_FONT * font) {
 }
 
 void StartScreen::redraw(ALLEGRO_FONT* font) {
-	al_draw_bitmap(sprites["Title"], SCREEN_W / 2 - 240, 20, NULL); //logo
-	al_draw_bitmap(sprites["Mr. Manager"], SCREEN_W / 2 - 40, 120, NULL); //manager
-	for (int i = 1; i < 7; i++) {
-		al_draw_bitmap(sprites["Mr. Man"], SCREEN_W / 8 * i + 14, SCREEN_H / 2 - 30, NULL); //army of catchers
-	}
-
+	//al_draw_bitmap(sprites["Title"], SCREEN_W / 2 - 240, 20, NULL); //logo
+	
 	//Instructions
 	al_draw_text(font, al_map_rgb(255, 255, 255), SCREEN_W / 2, SCREEN_H / 2 + 10, ALLEGRO_ALIGN_CENTER, "Mr. Manager wants to run a teambuilding exercise for his employees.");
 	al_draw_text(font, al_map_rgb(255, 255, 255), SCREEN_W / 2, SCREEN_H / 2 + 20, ALLEGRO_ALIGN_CENTER, "Help Mr.Manager place his 5 catchers at the end of his");
@@ -121,14 +101,8 @@ void StartScreen::back() {
 }
 
 void StartScreen::cont() {
-	if (menu.get_selected() == "Easy") {
-		next_state = Easy;
-	}
-	else if (menu.get_selected() == "Medium") {
-		next_state = Medium;
-	}
-	else if (menu.get_selected() == "Hard") {
-		next_state = Hard;
+	if (menu.get_selected() == "Start") {
+		next_state = Gameplay;
 	}
 	else {
 		next_state = Exit;

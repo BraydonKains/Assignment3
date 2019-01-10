@@ -7,6 +7,9 @@
 
 #include "enums.h"
 
+#define SCREEN_W 640
+#define SCREEN_H 480
+
 //Screen base class, implemented by every game screen
 class Screen {
 public:

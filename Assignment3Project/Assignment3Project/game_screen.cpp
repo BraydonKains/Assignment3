@@ -60,7 +60,7 @@ void GameScreen::run(ALLEGRO_FONT* font) {
 	for (int i = 0; i < ALLEGRO_KEY_MAX; i++) keys[i] = false;
 
 	al_start_timer(timer);
-	bool exit_screen;
+	bool exit_screen = false;
 	while (!exit_screen) {
 		ALLEGRO_EVENT ev;
 		al_wait_for_event(event_queue, &ev);
@@ -118,6 +118,7 @@ void GameScreen::run(ALLEGRO_FONT* font) {
 				case ALLEGRO_KEY_RCTRL:
 					keys[KEYCTRL] = false;
 					break;
+				}
 			}
 			//Global refresh
 			al_clear_to_color(al_map_rgb(0, 0, 0));
