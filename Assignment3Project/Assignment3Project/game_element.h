@@ -11,6 +11,6 @@ public:
 	int width;
 
 	virtual void reset_pos(float x, float y) = 0;
-	virtual void move() = 0;
-	virtual void draw(Direction dir) = 0;
+	virtual void move(Direction dir) = 0;
+	virtual void draw() = 0;
 };
