@@ -33,6 +33,7 @@ GameScreen::GameScreen(std::map<std::string, ALLEGRO_BITMAP*> _sprites, std::map
 void GameScreen::reset() {
 	ship.set_sprite(sprites["Ship"]);
 	ship.reset_pos(SCREEN_W / 2, SCREEN_H / 8);
+	max_bullets = 3;
 }
 
 //If a sample needs to be played while it is still being played, it will be stopped first.
@@ -66,6 +67,7 @@ void GameScreen::run(ALLEGRO_FONT* font) {
 		ALLEGRO_EVENT ev;
 		al_wait_for_event(event_queue, &ev);
 		if (ev.type == ALLEGRO_EVENT_TIMER) { //Check per frame
+			//Ship Movement
 			if (keys[KEYUP]) {
 				if (keys[KEYRIGHT]) {
 					ship.move(UR);
@@ -93,6 +95,13 @@ void GameScreen::run(ALLEGRO_FONT* font) {
 			}
 			else if (keys[KEYRIGHT]) {
 				ship.move(R);
+			}
+
+			//Firing
+			if (keys[KEYSPACE]) {
+				if (bullets.size() < max_bullets) {
+					bullets.push_back(ship.fire());
+				}
 			}
 
 			//Global refresh
@@ -177,6 +186,19 @@ void GameScreen::run(ALLEGRO_FONT* font) {
 //Redraw all elements of the screen
 void GameScreen::redraw(ALLEGRO_FONT* font) {
 	ship.draw();
+
+	vector<int> unload;
+	for (unsigned int i = 0; i < bullets.size(); i++) {
+		if (bullets.at(i).oob) {
+			unload.push_back(i);
+		}
+		bullets.at(i).move(U);
+		bullets.at(i).draw();
+	}
+	for (unsigned int i = 0; i < unload.size(); i++) {
+		int x = unload.at(i);
+		bullets.erase(bullets.begin() + x);
+	}
 }
 
 void GameScreen::back() {

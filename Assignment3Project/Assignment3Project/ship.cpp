@@ -53,6 +53,8 @@ void Ship::move(Direction dir) {
 	}
 }
 
-void Ship::fire() {
-
+Bullet Ship::fire() {
+	Bullet new_bullet;
+	reset_pos((x_pos + width) / 2, y_pos + new_bullet.height);
+	return new_bullet;
 }

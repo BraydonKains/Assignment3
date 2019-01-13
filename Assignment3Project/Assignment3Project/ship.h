@@ -3,6 +3,7 @@
 
 #include "enums.h"
 #include "game_element.h"
+#include "bullet.h"
 
 class Ship : public GameElement {
 public:
@@ -14,5 +15,5 @@ public:
 	void set_sprite(ALLEGRO_BITMAP* _sprite);
 	void draw();
 	void move(Direction dir);
-	void fire();
+	Bullet fire();
 };
