@@ -58,6 +58,8 @@ void GameScreen::run(ALLEGRO_FONT* font) {
 	redraw(font);
 	al_flip_display();
 
+	int fired_counter = 0;
+
 	bool keys[ALLEGRO_KEY_MAX];
 	for (int i = 0; i < ALLEGRO_KEY_MAX; i++) keys[i] = false;
 
@@ -100,7 +102,19 @@ void GameScreen::run(ALLEGRO_FONT* font) {
 			//Firing
 			if (keys[KEYSPACE]) {
 				if (bullets.size() < max_bullets) {
-					bullets.push_back(ship.fire());
+					if (!ship.fired) {
+						bullets.push_back(ship.fire());
+					}
+					ship.fired = true;
+				}
+			}
+			if (ship.fired) {
+				if (fired_counter >= 20) {
+					ship.fired = false;
+					fired_counter = 0;
+				}
+				else {
+					fired_counter++;
 				}
 			}
 
@@ -111,15 +125,19 @@ void GameScreen::run(ALLEGRO_FONT* font) {
 		}
 		if (ev.type == ALLEGRO_EVENT_KEY_DOWN) {
 			switch (ev.keyboard.keycode) {
+			case ALLEGRO_KEY_S:
 			case ALLEGRO_KEY_DOWN:
 				keys[KEYDOWN] = true;
 				break;
+			case ALLEGRO_KEY_W:
 			case ALLEGRO_KEY_UP:
 				keys[KEYUP] = true;
 				break;
+			case ALLEGRO_KEY_D:
 			case ALLEGRO_KEY_RIGHT:
 				keys[KEYRIGHT] = true;
 				break;
+			case ALLEGRO_KEY_A:
 			case ALLEGRO_KEY_LEFT:
 				keys[KEYLEFT] = true;
 				break;
@@ -143,15 +161,19 @@ void GameScreen::run(ALLEGRO_FONT* font) {
 		}
 		else if (ev.type == ALLEGRO_EVENT_KEY_UP) {
 			switch (ev.keyboard.keycode) {
+			case ALLEGRO_KEY_S:
 			case ALLEGRO_KEY_DOWN:
 				keys[KEYDOWN] = false;
 				break;
+			case ALLEGRO_KEY_W:
 			case ALLEGRO_KEY_UP:
 				keys[KEYUP] = false;
 				break;
+			case ALLEGRO_KEY_D:
 			case ALLEGRO_KEY_RIGHT:
 				keys[KEYRIGHT] = false;
 				break;
+			case ALLEGRO_KEY_A:
 			case ALLEGRO_KEY_LEFT:
 				keys[KEYLEFT] = false;
 				break;
@@ -192,8 +214,10 @@ void GameScreen::redraw(ALLEGRO_FONT* font) {
 		if (bullets.at(i).oob) {
 			unload.push_back(i);
 		}
-		bullets.at(i).move(U);
-		bullets.at(i).draw();
+		else {
+			bullets.at(i).move(U);
+			bullets.at(i).draw();
+		}
 	}
 	for (unsigned int i = 0; i < unload.size(); i++) {
 		int x = unload.at(i);

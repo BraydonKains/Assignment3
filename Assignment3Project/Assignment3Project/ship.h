@@ -9,6 +9,11 @@ class Ship : public GameElement {
 public:
 	ALLEGRO_BITMAP* sprite;
 
+	bool fired;
+	float h_bound;
+	float l_bound;
+	float r_bound;
+
 	Ship();
 
 	void reset_pos(float x, float y);

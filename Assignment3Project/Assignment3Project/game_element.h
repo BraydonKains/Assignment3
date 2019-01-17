@@ -7,8 +7,8 @@ public:
 	float x_pos;
 	float y_pos;
 	float speed;
-	int height;
-	int width;
+	float height;
+	float width;
 	bool oob;
 
 	virtual void reset_pos(float x, float y) = 0;

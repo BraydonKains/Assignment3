@@ -4,6 +4,12 @@ Ship::Ship() {
 	speed = 1.0;
 	height = 40;
 	width = 40;
+	
+	l_bound = 50;
+	r_bound = 590;
+	r_bound -= width;
+	h_bound = SCREEN_H;
+	h_bound -= height;
 }
 
 void Ship::reset_pos(float x, float y) {
@@ -51,10 +57,28 @@ void Ship::move(Direction dir) {
 		y_pos += factor;
 		break;
 	}
+
+	if (x_pos <= l_bound) {
+		x_pos = l_bound;
+	}
+	else if (x_pos >= r_bound) {
+		x_pos = r_bound;
+	}
+	if (y_pos <= 0.0) {
+		y_pos = 0.0;
+	}
+	else if (y_pos >= h_bound) {
+		y_pos = h_bound;
+	}
 }
 
 Bullet Ship::fire() {
-	Bullet new_bullet;
-	reset_pos((x_pos + width) / 2, y_pos + new_bullet.height);
-	return new_bullet;
+	if (!fired) {
+		Bullet new_bullet;
+		float x = (x_pos) + width / 2.0;
+		float y = y_pos - new_bullet.height;
+		new_bullet.reset_pos(x, y);
+		fired = true;
+		return new_bullet;
+	}
 }
