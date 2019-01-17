@@ -1,11 +1,12 @@
 #pragma once
-#include <allegro5/allegro_primitives.h>
 
 #include "game_element.h"
 
-class Bullet : public GameElement {
+class Enemy : public GameElement {
 public:
-	Bullet();
+	ALLEGRO_BITMAP* sprite;
+
+	Enemy();
 
 	void reset_pos(float x, float y);
 	void draw();

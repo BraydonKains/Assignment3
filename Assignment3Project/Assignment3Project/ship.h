@@ -1,5 +1,4 @@
 #pragma once
-#include <allegro5/allegro.h>
 
 #include "enums.h"
 #include "game_element.h"
@@ -19,6 +18,7 @@ public:
 	void reset_pos(float x, float y);
 	void set_sprite(ALLEGRO_BITMAP* _sprite);
 	void draw();
+	void collide(GameElement* x);
 	void move(Direction dir);
 	Bullet fire();
 };

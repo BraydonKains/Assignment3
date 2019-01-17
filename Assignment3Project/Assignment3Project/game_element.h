@@ -1,4 +1,5 @@
 #pragma once
+#include <allegro5/allegro.h>
 
 #include "enums.h"
 
@@ -14,4 +15,5 @@ public:
 	virtual void reset_pos(float x, float y) = 0;
 	virtual void move(Direction dir) = 0;
 	virtual void draw() = 0;
+	virtual void collide(GameElement* x) = 0;
 };

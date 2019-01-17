@@ -25,6 +25,10 @@ void Ship::draw() {
 	al_draw_bitmap(sprite, x_pos, y_pos, NULL);
 }
 
+void Ship::collide(GameElement * x)
+{
+}
+
 void Ship::move(Direction dir) {
 	float factor = 4 * speed;
 	switch (dir) {
@@ -73,12 +77,10 @@ void Ship::move(Direction dir) {
 }
 
 Bullet Ship::fire() {
-	if (!fired) {
-		Bullet new_bullet;
-		float x = (x_pos) + width / 2.0;
-		float y = y_pos - new_bullet.height;
-		new_bullet.reset_pos(x, y);
-		fired = true;
-		return new_bullet;
-	}
+	Bullet new_bullet;
+	float x = (x_pos) + width / 2.0;
+	float y = y_pos - new_bullet.height;
+	new_bullet.reset_pos(x, y);
+	fired = true;
+	return new_bullet;
 }
