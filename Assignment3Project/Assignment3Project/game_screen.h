@@ -5,6 +5,7 @@
 #include "screen.h"
 #include "ship.h"
 #include "bullet.h"
+#include "object_manager.h"
 
 //Main screen for gameplay
 class GameScreen : public Screen {
@@ -15,9 +16,8 @@ public:
 	int score;
 	int level;
 	bool music;
-	Ship ship;
+	ObjectManager objects;
 	unsigned int max_bullets;
-	std::vector<Bullet> bullets;
 
 	GameScreen(std::map<std::string, ALLEGRO_BITMAP*> _sprites, std::map<std::string, ALLEGRO_SAMPLE*> _samples);
 

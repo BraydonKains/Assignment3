@@ -31,8 +31,9 @@ GameScreen::GameScreen(std::map<std::string, ALLEGRO_BITMAP*> _sprites, std::map
 
 //Resets game to default values, and uses new given values
 void GameScreen::reset() {
-	ship.set_sprite(sprites["Ship"]);
-	ship.reset_pos(SCREEN_W / 2, SCREEN_H / 8);
+	objects.player = new Ship();
+	objects.player->set_sprite(sprites["Ship"]);
+	objects.player->reset_pos(SCREEN_W / 2, SCREEN_H / 8);
 	max_bullets = 3;
 }
 
@@ -72,45 +73,45 @@ void GameScreen::run(ALLEGRO_FONT* font) {
 			//Ship Movement
 			if (keys[KEYUP]) {
 				if (keys[KEYRIGHT]) {
-					ship.move(UR);
+					objects.player->move(UR);
 				}
 				else if (keys[KEYLEFT]) {
-					ship.move(UL);
+					objects.player->move(UL);
 				}
 				else {
-					ship.move(U);
+					objects.player->move(U);
 				}
 			}
 			else if (keys[KEYDOWN]) {
 				if (keys[KEYRIGHT]) {
-					ship.move(DR);
+					objects.player->move(DR);
 				}
 				else if (keys[KEYLEFT]) {
-					ship.move(DL);
+					objects.player->move(DL);
 				}
 				else {
-					ship.move(D);
+					objects.player->move(D);
 				}
 			}
 			else if (keys[KEYLEFT]) {
-				ship.move(L);
+				objects.player->move(L);
 			}
 			else if (keys[KEYRIGHT]) {
-				ship.move(R);
+				objects.player->move(R);
 			}
 
 			//Firing
 			if (keys[KEYSPACE]) {
-				if (bullets.size() < max_bullets) {
-					if (!ship.fired) {
-						bullets.push_back(ship.fire());
+				if (objects.player_bullets.size() < max_bullets) {
+					if (!objects.player->fired) {
+						objects.player_bullets.push_back(&objects.player->fire());
 					}
-					ship.fired = true;
+					objects.player->fired = true;
 				}
 			}
-			if (ship.fired) {
+			if (objects.player->fired) {
 				if (fired_counter >= 20) {
-					ship.fired = false;
+					objects.player->fired = false;
 					fired_counter = 0;
 				}
 				else {
@@ -207,21 +208,21 @@ void GameScreen::run(ALLEGRO_FONT* font) {
 
 //Redraw all elements of the screen
 void GameScreen::redraw(ALLEGRO_FONT* font) {
-	ship.draw();
+	objects.player->draw();
 
 	vector<int> unload;
-	for (unsigned int i = 0; i < bullets.size(); i++) {
-		if (bullets.at(i).oob) {
+	for (unsigned int i = 0; i < objects.player_bullets.size(); i++) {
+		if (objects.player_bullets.at(i)->oob) {
 			unload.push_back(i);
 		}
 		else {
-			bullets.at(i).move(U);
-			bullets.at(i).draw();
+			objects.player_bullets.at(i)->move(U);
+			objects.player_bullets.at(i)->draw();
 		}
 	}
 	for (unsigned int i = 0; i < unload.size(); i++) {
 		int x = unload.at(i);
-		bullets.erase(bullets.begin() + x);
+		objects.player_bullets.erase(objects.player_bullets.begin() + x);
 	}
 }
 
