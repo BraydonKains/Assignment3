@@ -60,8 +60,11 @@
     <ClInclude Include="bullet.h">
       <Filter>Header Files\Assignment3</Filter>
     </ClInclude>
-    <ClInclude Include="enemy.h">
-      <Filter>Header Files\Assignment3</Filter>
+    <ClInclude Include="object_manager.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="behavior_manager.h">
+      <Filter>Header Files\Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -86,11 +89,16 @@
     <ClCompile Include="ship.cpp">
       <Filter>Source Files\Assignment3Implement</Filter>
     </ClCompile>
-    <ClCompile Include="enemy.cpp">
-      <Filter>Source Files\Assignment3Implement</Filter>
+    <ClCompile Include="object_manager.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="enemies.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>
