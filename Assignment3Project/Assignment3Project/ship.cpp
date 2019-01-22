@@ -25,10 +25,6 @@ void Ship::draw() {
 	al_draw_bitmap(sprite, x_pos, y_pos, NULL);
 }
 
-void Ship::collide(GameElement * x)
-{
-}
-
 void Ship::move(Direction dir) {
 	float factor = 4 * speed;
 	switch (dir) {

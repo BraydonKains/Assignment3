@@ -11,5 +11,4 @@ public:
 	void reset_pos(float x, float y);
 	void draw();
 	void move(Direction dir);
-	void collide(GameElement* x);
 };

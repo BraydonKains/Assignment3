@@ -15,7 +15,3 @@ void Enemy::draw()
 void Enemy::move(Direction dir)
 {
 }
-
-void Enemy::collide(GameElement * x)
-{
-}

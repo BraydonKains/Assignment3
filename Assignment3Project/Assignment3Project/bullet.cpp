@@ -24,7 +24,3 @@ void Bullet::move(Direction dir) {
 		oob = true;
 	}
 }
-
-void Bullet::collide(GameElement * x)
-{
-}
