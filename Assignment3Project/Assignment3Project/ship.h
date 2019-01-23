@@ -13,7 +13,9 @@ public:
 	float l_bound;
 	float r_bound;
 
-	Ship();
+	Behavior behavior;
+
+	Ship(Behavior _behavior);
 
 	void reset_pos(float x, float y);
 	void set_sprite(ALLEGRO_BITMAP* _sprite);

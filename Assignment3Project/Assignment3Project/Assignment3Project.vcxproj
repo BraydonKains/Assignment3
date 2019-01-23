@@ -135,7 +135,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="behavior_manager.h" />
     <ClInclude Include="bullet.h" />
     <ClInclude Include="cursor.h" />
     <ClInclude Include="enums.h" />

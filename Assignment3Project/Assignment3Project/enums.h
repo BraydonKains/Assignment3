@@ -20,3 +20,8 @@ enum Direction {
 	DR,
 	DL
 };
+
+enum Behavior {
+	Player,
+	Enemy
+};

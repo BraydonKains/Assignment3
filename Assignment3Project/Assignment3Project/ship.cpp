@@ -1,10 +1,19 @@
 #include "ship.h"
 
-Ship::Ship() {
-	speed = 1.0;
-	height = 40;
-	width = 40;
-	
+Ship::Ship(Behavior _behavior) {
+	switch (_behavior) {
+	case Player:
+		speed = 1.0;
+		height = 40;
+		width = 40;
+		break;
+	case Enemy:
+		speed = 1.2;
+		height = 40;
+		width = 40;
+		break;
+	}
+
 	l_bound = 50;
 	r_bound = 590;
 	r_bound -= width;
