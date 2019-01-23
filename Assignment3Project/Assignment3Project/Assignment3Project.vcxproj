@@ -146,7 +146,6 @@
     <ClInclude Include="game.h" />
     <ClInclude Include="game_element.h" />
     <ClInclude Include="game_screen.h" />
-    <ClInclude Include="mappy_A5.h" />
     <ClInclude Include="object_manager.h" />
     <ClInclude Include="screen.h" />
     <ClInclude Include="ship.h" />
@@ -158,7 +157,6 @@
     <ClCompile Include="game.cpp" />
     <ClCompile Include="game_screen.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="mappy_A5.c" />
     <ClCompile Include="object_manager.cpp" />
     <ClCompile Include="ship.cpp" />
     <ClCompile Include="start_screen.cpp" />

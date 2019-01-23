@@ -17,4 +17,5 @@ public:
 	void initiate(Ship* _player);
 	bool chk_player_col();
 	int chk_bullet_col();
+	void draw_objects();
 };

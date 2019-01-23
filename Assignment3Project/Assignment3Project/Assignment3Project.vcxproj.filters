@@ -63,9 +63,6 @@
     <ClInclude Include="object_manager.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="mappy_A5.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -90,9 +87,6 @@
       <Filter>Source Files\Assignment3Implement</Filter>
     </ClCompile>
     <ClCompile Include="object_manager.cpp">
-      <Filter>Source Files\EngineImplement</Filter>
-    </ClCompile>
-    <ClCompile Include="mappy_A5.c">
       <Filter>Source Files\EngineImplement</Filter>
     </ClCompile>
   </ItemGroup>

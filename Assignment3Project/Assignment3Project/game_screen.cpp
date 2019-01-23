@@ -223,23 +223,8 @@ void GameScreen::run(ALLEGRO_FONT* font) {
 //Redraw all elements of the screen
 void GameScreen::redraw(ALLEGRO_FONT* font) {
 	//MapDrawBG(0, map_y, 0, SCREEN_L_B, SCREEN_W - 80, SCREEN_H);
-
-	objects.player->draw();
-
-	vector<int> unload;
-	for (unsigned int i = 0; i < objects.player_bullets.size(); i++) {
-		if (objects.player_bullets.at(i)->oob) {
-			unload.push_back(i);
-		}
-		else {
-			objects.player_bullets.at(i)->move(U);
-			objects.player_bullets.at(i)->draw();
-		}
-	}
-	for (unsigned int i = 0; i < unload.size(); i++) {
-		int x = unload.at(i);
-		objects.player_bullets.erase(objects.player_bullets.begin() + x);
-	}
+ 
+	objects.draw_objects();
 }
 
 void GameScreen::back() {
