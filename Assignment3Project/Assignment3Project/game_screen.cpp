@@ -9,6 +9,8 @@
 #include <map>
 #include <ctime>
 
+//#include "mappy_A5.h"
+
 #include "game_screen.h"
 
 #define FPS 60
@@ -31,7 +33,7 @@ GameScreen::GameScreen(std::map<std::string, ALLEGRO_BITMAP*> _sprites, std::map
 
 //Resets game to default values, and uses new given values
 void GameScreen::reset() {
-	objects.player = new Ship();
+	objects.player = new Ship(Player);
 	objects.player->set_sprite(sprites["Ship"]);
 	objects.player->reset_pos(SCREEN_W / 2, SCREEN_H / 8);
 	max_bullets = 3;
@@ -55,6 +57,10 @@ void GameScreen::run(ALLEGRO_FONT* font) {
 	ALLEGRO_TIMER* timer = NULL;
 	timer = al_create_timer(1.0 / FPS);
 	al_register_event_source(event_queue, al_get_timer_event_source(timer));
+
+	//MapLoad((char*)"level.fmp", 1);
+
+	map_y = TILE_SIZE * LEVEL_LEN;
 
 	redraw(font);
 	al_flip_display();
@@ -117,6 +123,13 @@ void GameScreen::run(ALLEGRO_FONT* font) {
 				else {
 					fired_counter++;
 				}
+			}
+
+			if (map_y > 0) {
+				map_y -= 10;
+			}
+			else {
+				next_state = Exit;
 			}
 
 			//Global refresh
@@ -202,12 +215,15 @@ void GameScreen::run(ALLEGRO_FONT* font) {
 	}
 
 	//Garbage collection
+	//MapFreeMem();
 	al_destroy_event_queue(event_queue);
 	al_destroy_timer(timer);
 }
 
 //Redraw all elements of the screen
 void GameScreen::redraw(ALLEGRO_FONT* font) {
+	//MapDrawBG(0, map_y, 0, SCREEN_L_B, SCREEN_W - 80, SCREEN_H);
+
 	objects.player->draw();
 
 	vector<int> unload;

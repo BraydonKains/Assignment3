@@ -2,20 +2,20 @@
 
 Ship::Ship(Behavior _behavior) {
 	switch (_behavior) {
-	case Player:
-		speed = 1.0;
-		height = 40;
-		width = 40;
-		break;
 	case Enemy:
 		speed = 1.2;
 		height = 40;
 		width = 40;
 		break;
+	default:
+		speed = 1.0;
+		height = 40;
+		width = 40;
+		break;
 	}
 
-	l_bound = 50;
-	r_bound = 590;
+	l_bound = SCREEN_L_B;
+	r_bound = SCREEN_R_B;
 	r_bound -= width;
 	h_bound = SCREEN_H;
 	h_bound -= height;
@@ -82,7 +82,7 @@ void Ship::move(Direction dir) {
 }
 
 Bullet Ship::fire() {
-	Bullet new_bullet;
+	Bullet new_bullet(behavior);
 	float x = (x_pos) + width / 2.0;
 	float y = y_pos - new_bullet.height;
 	new_bullet.reset_pos(x, y);

@@ -1,9 +1,20 @@
 #include "bullet.h"
 
-Bullet::Bullet() {
-	speed = 1.0;
-	height = 20;
-	width = 5;
+Bullet::Bullet(Behavior _behavior) {
+	behavior = _behavior;
+	switch (behavior) {
+	case Enemy:
+		speed = 1.0;
+		height = 20;
+		width = 5;
+		break;
+	default:
+		speed = 1.0;
+		height = 20;
+		width = 5;
+		break;
+	}
+
 	oob = false;
 }
 
@@ -19,7 +30,14 @@ void Bullet::draw() {
 }
 
 void Bullet::move(Direction dir) {
-	y_pos -= 6;
+	switch (dir) {
+	case U:
+		y_pos -= 6;
+		break;
+	case D: 
+		y_pos += 6;
+		break;
+	}
 	if (y_pos < 0 - height) {
 		oob = true;
 	}

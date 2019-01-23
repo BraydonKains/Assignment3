@@ -14,11 +14,9 @@ void Game::init() {
 	sprites.insert(pair<string, ALLEGRO_BITMAP*>("Ship", al_load_bitmap("placeholder.bmp")));
 
 
-	//al_reserve_samples(4);
-	//samples.insert(pair<string, ALLEGRO_SAMPLE*>("Theme", al_load_sample("rasputin.wav")));
-
+	al_reserve_samples(4);
+	samples.insert(pair<string, ALLEGRO_SAMPLE*>("Theme", al_load_sample("cheesetheme.wav")));
 	
-
 	font = al_create_builtin_font();
 }
 

@@ -7,10 +7,14 @@ class GameElement {
 public:
 	float x_pos;
 	float y_pos;
+	float h_bound;
+	float l_bound;
+	float r_bound;
 	float speed;
 	float height;
 	float width;
 	bool oob;
+	Behavior behavior;
 
 	virtual void reset_pos(float x, float y) = 0;
 	virtual void move(Direction dir) = 0;

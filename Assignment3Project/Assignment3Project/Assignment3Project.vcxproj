@@ -86,6 +86,10 @@
     <Allegro_AddonAcodec>true</Allegro_AddonAcodec>
     <Allegro_AddonFont>true</Allegro_AddonFont>
     <Allegro_AddonColor>true</Allegro_AddonColor>
+    <Allegro_AddonPhysfs>true</Allegro_AddonPhysfs>
+    <Allegro_AddonDialog>true</Allegro_AddonDialog>
+    <Allegro_AddonMemfile>true</Allegro_AddonMemfile>
+    <Allegro_AddonVideo>true</Allegro_AddonVideo>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -101,6 +105,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -141,6 +146,7 @@
     <ClInclude Include="game.h" />
     <ClInclude Include="game_element.h" />
     <ClInclude Include="game_screen.h" />
+    <ClInclude Include="mappy_A5.h" />
     <ClInclude Include="object_manager.h" />
     <ClInclude Include="screen.h" />
     <ClInclude Include="ship.h" />
@@ -152,15 +158,16 @@
     <ClCompile Include="game.cpp" />
     <ClCompile Include="game_screen.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="mappy_A5.c" />
     <ClCompile Include="object_manager.cpp" />
     <ClCompile Include="ship.cpp" />
     <ClCompile Include="start_screen.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <Text Include="enemies.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="enemies.txt" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

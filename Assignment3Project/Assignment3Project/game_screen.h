@@ -16,6 +16,9 @@ public:
 	int score;
 	int level;
 	bool music;
+
+	int map_y;
+
 	ObjectManager objects;
 	unsigned int max_bullets;
 

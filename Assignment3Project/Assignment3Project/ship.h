@@ -9,12 +9,7 @@ public:
 	ALLEGRO_BITMAP* sprite;
 
 	bool fired;
-	float h_bound;
-	float l_bound;
-	float r_bound;
-
-	Behavior behavior;
-
+	
 	Ship(Behavior _behavior);
 
 	void reset_pos(float x, float y);

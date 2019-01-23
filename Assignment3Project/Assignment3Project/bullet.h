@@ -5,7 +5,7 @@
 
 class Bullet : public GameElement {
 public:
-	Bullet();
+	Bullet(Behavior _behavior);
 
 	void reset_pos(float x, float y);
 	void draw();
