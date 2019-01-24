@@ -34,13 +34,14 @@ void Game::run() {
 	while (state != Exit) {
 		switch (state) {
 		case Start:
+			//start_screen.reset();
 			start_screen.run(font);
 			state = start_screen.next_state;
 			break;
 		case Gameplay:
 			game_screen.reset();
 			game_screen.run(font);
-			state = start_screen.next_state;
+			state = game_screen.next_state;
 			break;
 		}
 	}

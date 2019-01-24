@@ -15,6 +15,10 @@ StartScreen::StartScreen(std::map<std::string, ALLEGRO_BITMAP*> _sprites) {
 	sprites = _sprites;
 }
 
+void StartScreen::reset() {
+	
+}
+
 //Run screen
 void StartScreen::run(ALLEGRO_FONT * font) {
 	ALLEGRO_EVENT_QUEUE* event_queue = NULL;
