@@ -3,7 +3,7 @@
 Ship::Ship(Behavior _behavior) {
 	switch (_behavior) {
 	case Enemy:
-		speed = 1.2;
+		speed = 0.5;
 		height = 40;
 		width = 40;
 
@@ -12,7 +12,7 @@ Ship::Ship(Behavior _behavior) {
 		h_bound = SCREEN_H;
 		break;
 	default:
-		speed = 0.5;
+		speed = 1.0;
 		height = 40;
 		width = 40;
 

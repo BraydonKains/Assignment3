@@ -162,7 +162,7 @@ void GameScreen::run(ALLEGRO_FONT* font) {
 				map_y -= 10;
 			}
 			else {
-				next_state = Exit;
+				exit_screen = true;
 			}
 
 			if (more_enemies && map_y >= next_enemy.when) {
@@ -180,6 +180,10 @@ void GameScreen::run(ALLEGRO_FONT* font) {
 			}
 						
 			//Global refresh
+			if (objects.chk_player_col()) {
+				exit_screen = true;
+			}
+			score += objects.chk_bullet_col();
 			objects.move_enemies();
 			al_clear_to_color(al_map_rgb(0, 0, 0));
 			redraw(font);
@@ -281,5 +285,5 @@ void GameScreen::back() {
 }
 
 void GameScreen::cont() {
-	next_state = End;
+	next_state = Start;
 }
