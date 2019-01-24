@@ -21,6 +21,7 @@ public:
 
 	ObjectManager objects;
 	unsigned int max_bullets;
+	std::vector<NewEnemy> enemy_q;
 
 	GameScreen(std::map<std::string, ALLEGRO_BITMAP*> _sprites, std::map<std::string, ALLEGRO_SAMPLE*> _samples);
 
@@ -29,4 +30,7 @@ public:
 	void redraw(ALLEGRO_FONT* font);
 	void back();
 	void cont();
+private:
+	void play(ALLEGRO_SAMPLE_INSTANCE* x);
+	void build_enemy_queue();
 };

@@ -12,6 +12,7 @@ void Game::init() {
 	score = 0;
 	state = Start;
 	sprites.insert(pair<string, ALLEGRO_BITMAP*>("Ship", al_load_bitmap("placeholder.bmp")));
+	sprites.insert(pair<string, ALLEGRO_BITMAP*>("Enemy", al_load_bitmap("enemy.bmp")));
 
 
 	al_reserve_samples(4);

@@ -6,6 +6,7 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <fstream>
 #include <map>
 #include <ctime>
 
@@ -18,6 +19,8 @@
 using std::vector;
 using std::string;
 using std::ostringstream;
+using std::istringstream;
+using std::ifstream;
 using std::map;
 using std::pair;
 
@@ -42,11 +45,36 @@ void GameScreen::reset() {
 //If a sample needs to be played while it is still being played, it will be stopped first.
 //Admittedly this was a hack solution to the fact that my sound effect samples are too long. 
 //In future projects I will use a better program for sound effect creation that does not have a large minimum length for audio export.
-void play(ALLEGRO_SAMPLE_INSTANCE* x) {
+void GameScreen::play(ALLEGRO_SAMPLE_INSTANCE* x) {
 	if (al_get_sample_instance_playing(x)) {
 		al_stop_sample_instance(x);
 	}
 	al_play_sample_instance(x);
+}
+
+void GameScreen::build_enemy_queue() {
+	string line;
+	ifstream enemies_file("enemies.txt");
+
+	if (enemies_file.is_open()) {
+		while (getline(enemies_file, line)) {
+			NewEnemy next;
+			istringstream curr_line(line);
+			string element;
+			//Get enemy type (when there's other types of enemies I'll fix this)
+			getline(curr_line, element, ',');
+			next.e_type = Enemy; 
+			//Get appearance time
+			getline(curr_line, element, ',');
+			next.when = stoi(element);
+			//Get position
+			getline(curr_line, element, ',');
+			next.x = stoi(element);
+			enemy_q.push_back(next);
+		}
+	}
+
+	enemies_file.close();
 }
 
 void GameScreen::run(ALLEGRO_FONT* font) {
@@ -57,6 +85,11 @@ void GameScreen::run(ALLEGRO_FONT* font) {
 	ALLEGRO_TIMER* timer = NULL;
 	timer = al_create_timer(1.0 / FPS);
 	al_register_event_source(event_queue, al_get_timer_event_source(timer));
+
+	build_enemy_queue();
+	bool more_enemies = true;
+	NewEnemy next_enemy = enemy_q.back();
+	enemy_q.pop_back();
 
 	//MapLoad((char*)"level.fmp", 1);
 
@@ -132,7 +165,22 @@ void GameScreen::run(ALLEGRO_FONT* font) {
 				next_state = Exit;
 			}
 
+			if (more_enemies && map_y >= next_enemy.when) {
+				Ship* new_e = new Ship(next_enemy.e_type);
+				new_e->set_sprite(sprites["Enemy"]);
+				new_e->reset_pos(next_enemy.x, 0 - new_e->height + 1);
+				objects.enemies.push_back(new_e);
+				if (enemy_q.size() > 0) {
+					next_enemy = enemy_q.back();
+					enemy_q.pop_back();
+				}
+				else {
+					more_enemies = false;
+				}
+			}
+						
 			//Global refresh
+			objects.move_enemies();
 			al_clear_to_color(al_map_rgb(0, 0, 0));
 			redraw(font);
 			al_flip_display();
@@ -216,6 +264,7 @@ void GameScreen::run(ALLEGRO_FONT* font) {
 
 	//Garbage collection
 	//MapFreeMem();
+	objects.destroy_objects();
 	al_destroy_event_queue(event_queue);
 	al_destroy_timer(timer);
 }

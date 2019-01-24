@@ -29,3 +29,16 @@ enum Behavior {
 	Player,
 	Enemy
 };
+
+struct Hitbox {
+	int x;
+	int y;
+	int height;
+	int width;
+};
+
+struct NewEnemy {
+	int x;
+	Behavior e_type;
+	int when;
+};

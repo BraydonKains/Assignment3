@@ -6,24 +6,33 @@ Ship::Ship(Behavior _behavior) {
 		speed = 1.2;
 		height = 40;
 		width = 40;
+
+		l_bound = SCREEN_L_B;
+		r_bound = SCREEN_R_B;
+		h_bound = SCREEN_H;
 		break;
 	default:
-		speed = 1.0;
+		speed = 0.5;
 		height = 40;
 		width = 40;
-		break;
-	}
 
-	l_bound = SCREEN_L_B;
-	r_bound = SCREEN_R_B;
-	r_bound -= width;
-	h_bound = SCREEN_H;
-	h_bound -= height;
+		l_bound = SCREEN_L_B;
+		r_bound = SCREEN_R_B;
+		r_bound -= width;
+		h_bound = SCREEN_H;
+		h_bound -= height;
+		break;
+	}	
 }
 
 void Ship::reset_pos(float x, float y) {
 	x_pos = x;
 	y_pos = y;
+
+	hitbox.x = x_pos;
+	hitbox.y = y_pos;
+	hitbox.width = width;
+	hitbox.height = height;
 }
 
 void Ship::set_sprite(ALLEGRO_BITMAP* _sprite) {
@@ -31,7 +40,7 @@ void Ship::set_sprite(ALLEGRO_BITMAP* _sprite) {
 }
 
 void Ship::draw() {
-	al_draw_bitmap(sprite, x_pos, y_pos, NULL);
+	al_draw_bitmap(sprite, x_pos, y_pos, (behavior == Player) ? NULL : ALLEGRO_FLIP_VERTICAL);
 }
 
 void Ship::move(Direction dir) {
@@ -68,16 +77,28 @@ void Ship::move(Direction dir) {
 	}
 
 	if (x_pos <= l_bound) {
-		x_pos = l_bound;
+		if (behavior == Player) {
+			x_pos = l_bound;
+		}
+		else oob = true;
 	}
 	else if (x_pos >= r_bound) {
-		x_pos = r_bound;
+		if (behavior == Player) {
+			x_pos = r_bound;
+		}
+		else oob = true;
 	}
 	if (y_pos <= 0.0) {
-		y_pos = 0.0;
+		if (behavior == Player) {
+			y_pos = 0.0;
+		}
+		else oob = true;
 	}
 	else if (y_pos >= h_bound) {
-		y_pos = h_bound;
+		if (behavior == Player) {
+			y_pos = h_bound;
+		}
+		else oob = true;
 	}
 }
 

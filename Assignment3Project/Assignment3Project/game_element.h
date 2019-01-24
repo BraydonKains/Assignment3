@@ -15,6 +15,7 @@ public:
 	float width;
 	bool oob;
 	Behavior behavior;
+	Hitbox hitbox;
 
 	virtual void reset_pos(float x, float y) = 0;
 	virtual void move(Direction dir) = 0;

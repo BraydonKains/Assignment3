@@ -21,6 +21,11 @@ Bullet::Bullet(Behavior _behavior) {
 void Bullet::reset_pos(float x, float y) {
 	x_pos = x;
 	y_pos = y;
+
+	hitbox.x = x_pos;
+	hitbox.y = y_pos;
+	hitbox.width = width;
+	hitbox.height = height;
 }
 
 void Bullet::draw() {

@@ -12,9 +12,12 @@ public:
 	
 	Ship(Behavior _behavior);
 
+	//implementing virtual methods
 	void reset_pos(float x, float y);
-	void set_sprite(ALLEGRO_BITMAP* _sprite);
 	void draw();
 	void move(Direction dir);
+
+	//unique to object
+	void set_sprite(ALLEGRO_BITMAP* _sprite);
 	Bullet fire();
 };
