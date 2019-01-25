@@ -28,11 +28,6 @@ Ship::Ship(Behavior _behavior) {
 void Ship::reset_pos(float x, float y) {
 	x_pos = x;
 	y_pos = y;
-
-	hitbox.x = x_pos;
-	hitbox.y = y_pos;
-	hitbox.width = width;
-	hitbox.height = height;
 }
 
 void Ship::set_sprite(ALLEGRO_BITMAP* _sprite) {
@@ -100,6 +95,16 @@ void Ship::move(Direction dir) {
 		}
 		else oob = true;
 	}
+}
+
+Hitbox Ship::get_hitbox()
+{
+	Hitbox hitbox;
+	hitbox.x = x_pos;
+	hitbox.y = y_pos;
+	hitbox.width = width;
+	hitbox.height = height;
+	return hitbox;
 }
 
 Bullet Ship::fire() {

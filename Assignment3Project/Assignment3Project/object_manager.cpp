@@ -12,33 +12,39 @@ void ObjectManager::initiate(Ship * _player) {
 }
 
 bool ObjectManager::chk_player_col() {
-	for (vector<Ship*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
-		if (col_eval(player->hitbox, (*it)->hitbox)) {
-			return true;
+	if (enemies.size() > 0) {
+		for (vector<Ship*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
+			if (col_eval(player->get_hitbox(), (*it)->get_hitbox())) {
+				return true;
+			}
 		}
 	}
+	return false;
 }
 
 int ObjectManager::chk_bullet_col() {
 	int points = 0;
-	int i = 0;
-	vector<int> dead;
-	for (vector<Ship*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
-		for (vector<Bullet*>::iterator it_b = player_bullets.begin(); it_b != player_bullets.end(); it++) {
-			if (col_eval((*it_b)->hitbox, (*it)->hitbox)) {
-				switch ((*it)->behavior) {
-				default:
-					points += 10;
+	if (enemies.size() > 0 && player_bullets.size() > 0) {
+		int i = 0;
+		vector<int> dead;
+		for (vector<Ship*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
+			for (vector<Bullet*>::iterator it_b = player_bullets.begin(); it_b != player_bullets.end(); it_b++) {
+				if (col_eval((*it_b)->get_hitbox(), (*it)->get_hitbox())) {
+					switch ((*it)->behavior) {
+					default:
+						points += 10;
+					}
+					delete *it;
+					dead.push_back(i);
 				}
-				delete *it;
-				dead.push_back(i);
 			}
+			i++;
 		}
-		i++;
-	}
-	//Removed backwards to avoid indexing errors
-	for (vector<int>::iterator it = dead.end(); it != dead.begin(); it--) {
-		enemies.erase(enemies.begin() + *it);
+		//Removed backwards to avoid indexing errors
+		for (vector<int>::iterator it = dead.end(); it != dead.begin(); it--) {
+			delete enemies.at(*it);
+			enemies.erase(enemies.begin() + *it);
+		}
 	}
 	return points;
 }
@@ -47,20 +53,22 @@ void ObjectManager::draw_objects()
 {
 	player->draw();
 
-	int i = 0;
-	vector<int> dead;
-	for (vector<Ship*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
-		if (!(*it)->oob) {
-			(*it)->draw();
+	if (enemies.size() > 0) {
+		int i = 0;
+		vector<int> oob_ships;
+		for (vector<Ship*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
+			if (!(*it)->oob) {
+				(*it)->draw();
+			}
+			else {
+				oob_ships.push_back(i);
+			}
+			i++;
 		}
-		else {
-			dead.push_back(i);
+		//Removed backwards to avoid indexing errors
+		for (vector<int>::iterator it = oob_ships.end(); it != oob_ships.begin(); it--) {
+			enemies.erase(enemies.begin() + *it);
 		}
-		i++;
-	}
-	//Removed backwards to avoid indexing errors
-	for (vector<int>::iterator it = dead.end(); it != dead.begin(); it--) {
-		enemies.erase(enemies.begin() + *it);
 	}
 
 	bool unload = false;
@@ -81,30 +89,60 @@ void ObjectManager::draw_objects()
 void ObjectManager::destroy_objects() {
 	delete player;
 
-	for (vector<Ship*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
-		delete *it;
+	if (enemies.size() > 0) {
+		for (vector<Ship*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
+			delete *it;
+		}
+		enemies.clear();
 	}
-	enemies.clear();
 
-	for (vector<Bullet*>::iterator it = player_bullets.begin(); it != player_bullets.end(); it++) {
-		delete *it;
+	if (player_bullets.size() > 0) {
+		for (vector<Bullet*>::iterator it = player_bullets.begin(); it != player_bullets.end(); it++) {
+			delete *it;
+		}
+		player_bullets.clear();
 	}
-	player_bullets.clear();
 
-	for (vector<Bullet*>::iterator it = enemy_bullets.begin(); it != enemy_bullets.end(); it++) {
-		delete *it;
+	if (enemy_bullets.size() > 0) {
+		for (vector<Bullet*>::iterator it = enemy_bullets.begin(); it != enemy_bullets.end(); it++) {
+			delete *it;
+		}
+		enemy_bullets.clear();
 	}
-	enemy_bullets.clear();
 }
 
 void ObjectManager::move_enemies() {
-	for (vector<Ship*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
-		(*it)->move(D);
+	if (enemies.size() > 0) {
+		for (vector<Ship*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
+			(*it)->move(D);
+		}
 	}
 }
 
 bool ObjectManager::col_eval(Hitbox h1, Hitbox h2) {
-	if ((h1.x > h2.x && h1.x < (h2.x + h2.width)) && (h1.y > h2.y && h1.y < (h2.y + h2.height))) {
-		return true;
-	}
+	int l1x = h1.x;
+	int l1y = h1.y;
+	int r1x = h1.x + h1.width;
+	int r1y = h1.y + h1.height;
+
+	int l2x = h2.x;
+	int l2y = h2.y;
+	int r2x = h2.x + h2.width;
+	int r2y = h2.y + h2.height;
+
+	/*if (h1.x > (h2.x + h2.width) || h2.x > (h1.x + h1.width))
+		return false;
+
+	if (h1.y < (h2.y + h2.height) || h2.y < (h1.y + h1.height))
+		return false;*/
+
+		// If one rectangle is on left side of other 
+	if (l1x > r2x || l2x > r1x)
+		return false;
+
+	// If one rectangle is above other 
+	if (l1y < r2y || l2y < r1y)
+		return false;
+
+	return true;
 }

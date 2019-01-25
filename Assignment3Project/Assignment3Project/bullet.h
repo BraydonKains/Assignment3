@@ -11,4 +11,5 @@ public:
 	void reset_pos(float x, float y);
 	void draw();
 	void move(Direction dir);
+	Hitbox get_hitbox();
 };
