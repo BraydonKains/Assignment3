@@ -13,7 +13,8 @@ void Game::init() {
 	state = Start;
 	sprites.insert(pair<string, ALLEGRO_BITMAP*>("Ship", al_load_bitmap("placeholder.bmp")));
 	sprites.insert(pair<string, ALLEGRO_BITMAP*>("Enemy", al_load_bitmap("enemy.bmp")));
-
+	sprites.insert(pair<string, ALLEGRO_BITMAP*>("MusicOn", al_load_bitmap("music_on.bmp")));
+	sprites.insert(pair<string, ALLEGRO_BITMAP*>("MusicOff", al_load_bitmap("music_off.bmp")));
 
 	al_reserve_samples(4);
 	samples.insert(pair<string, ALLEGRO_SAMPLE*>("Theme", al_load_sample("cheesetheme.wav")));

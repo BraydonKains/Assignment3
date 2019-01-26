@@ -91,15 +91,17 @@ void GameScreen::run(ALLEGRO_FONT* font) {
 	NewEnemy next_enemy = enemy_q.back();
 	enemy_q.pop_back();
 
-	//MapLoad((char*)"level.fmp", 1);
+	map<string, InputDelay> inputs;
+	inputs.insert(pair<string, InputDelay>("Fire", InputDelay()));
+	inputs.insert(pair<string, InputDelay>("Music", InputDelay()));
+	inputs.insert(pair<string, InputDelay>("Help", InputDelay()));
+	
 
 	map_y = TILE_SIZE * LEVEL_LEN;
 
 	redraw(font);
 	al_flip_display();
-
-	int fired_counter = 0;
-
+	
 	bool keys[ALLEGRO_KEY_MAX];
 	for (int i = 0; i < ALLEGRO_KEY_MAX; i++) keys[i] = false;
 
@@ -109,6 +111,11 @@ void GameScreen::run(ALLEGRO_FONT* font) {
 		ALLEGRO_EVENT ev;
 		al_wait_for_event(event_queue, &ev);
 		if (ev.type == ALLEGRO_EVENT_TIMER) { //Check per frame
+			//Music toggle
+			if (keys[KEYCTRL] && keys[KEYM]) {
+				music = !music;
+			}
+
 			//Ship Movement
 			if (keys[KEYUP]) {
 				if (keys[KEYRIGHT]) {
@@ -278,6 +285,13 @@ void GameScreen::redraw(ALLEGRO_FONT* font) {
 	//MapDrawBG(0, map_y, 0, SCREEN_L_B, SCREEN_W - 80, SCREEN_H);
  
 	objects.draw_objects();
+
+	ostringstream score_msg;
+	score_msg << "Score: " << score;
+	al_draw_text(font, al_map_rgb(255, 255, 255), SCREEN_R_B + 2, 0, ALLEGRO_ALIGN_LEFT, score_msg.str().c_str());
+
+	string music_img = (music) ? "MusicOn" : "MusicOff";
+	al_draw_bitmap(sprites[music_img], SCREEN_R_B + 10, 90, NULL);
 }
 
 void GameScreen::back() {
