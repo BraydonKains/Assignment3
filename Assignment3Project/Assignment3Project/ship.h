@@ -10,7 +10,7 @@ public:
 
 	bool fired;
 	
-	Ship(Behavior _behavior);
+	Ship();
 
 	//implementing virtual methods
 	void reset_pos(float x, float y);
@@ -19,6 +19,6 @@ public:
 	Hitbox get_hitbox();
 
 	//unique to object
-	void set_sprite(ALLEGRO_BITMAP* _sprite);
+	void set_props(ALLEGRO_BITMAP* _sprite, Behavior _behavior);
 	Bullet fire();
 };

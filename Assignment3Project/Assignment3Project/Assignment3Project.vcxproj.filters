@@ -63,6 +63,15 @@
     <ClInclude Include="object_manager.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
+    <ClInclude Include="result_screen.h">
+      <Filter>Header Files\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="star.h">
+      <Filter>Header Files\Assignment3</Filter>
+    </ClInclude>
+    <ClInclude Include="help_screen.h">
+      <Filter>Header Files\Screens</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -88,6 +97,15 @@
     </ClCompile>
     <ClCompile Include="object_manager.cpp">
       <Filter>Source Files\EngineImplement</Filter>
+    </ClCompile>
+    <ClCompile Include="result_screen.cpp">
+      <Filter>Source Files\ScreensImplement</Filter>
+    </ClCompile>
+    <ClCompile Include="star.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="help_screen.cpp">
+      <Filter>Source Files\ScreensImplement</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

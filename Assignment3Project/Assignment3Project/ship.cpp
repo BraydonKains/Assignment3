@@ -1,15 +1,27 @@
 #include "ship.h"
 
-Ship::Ship(Behavior _behavior) {
-	switch (_behavior) {
+Ship::Ship() {
+}
+
+void Ship::reset_pos(float x, float y) {
+	x_pos = x;
+	y_pos = y;
+}
+
+void Ship::set_props(ALLEGRO_BITMAP* _sprite, Behavior _behavior) {
+	sprite = _sprite;
+	behavior = _behavior;
+	oob = false;
+	switch (behavior) {
 	case Enemy:
-		speed = 0.5;
+		speed = 1.1;
 		height = 40;
 		width = 40;
 
 		l_bound = SCREEN_L_B;
 		r_bound = SCREEN_R_B;
-		h_bound = SCREEN_H;
+		h_t_bound = 0 - height;
+		h_b_bound = SCREEN_H + height;
 		break;
 	default:
 		speed = 1.0;
@@ -19,19 +31,10 @@ Ship::Ship(Behavior _behavior) {
 		l_bound = SCREEN_L_B;
 		r_bound = SCREEN_R_B;
 		r_bound -= width;
-		h_bound = SCREEN_H;
-		h_bound -= height;
+		h_t_bound = 0;
+		h_b_bound = SCREEN_H - height;
 		break;
-	}	
-}
-
-void Ship::reset_pos(float x, float y) {
-	x_pos = x;
-	y_pos = y;
-}
-
-void Ship::set_sprite(ALLEGRO_BITMAP* _sprite) {
-	sprite = _sprite;
+	}
 }
 
 void Ship::draw() {
@@ -83,15 +86,15 @@ void Ship::move(Direction dir) {
 		}
 		else oob = true;
 	}
-	if (y_pos <= 0.0) {
+	if (y_pos <= h_t_bound) {
 		if (behavior == Player) {
-			y_pos = 0.0;
+			y_pos = h_t_bound;
 		}
 		else oob = true;
 	}
-	else if (y_pos >= h_bound) {
+	else if (y_pos >= h_b_bound) {
 		if (behavior == Player) {
-			y_pos = h_bound;
+			y_pos = h_b_bound;
 		}
 		else oob = true;
 	}

@@ -10,7 +10,8 @@
 enum State {
 	Start,
 	Gameplay,
-	End,
+	Win,
+	Lose,
 	Exit
 };
 
@@ -28,6 +29,12 @@ enum Direction {
 enum Behavior {
 	Player,
 	Enemy
+};
+
+enum BgLayer {
+	Front,
+	Middle,
+	Back
 };
 
 struct Hitbox {

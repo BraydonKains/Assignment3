@@ -7,7 +7,8 @@ class GameElement {
 public:
 	float x_pos;
 	float y_pos;
-	float h_bound;
+	float h_t_bound;
+	float h_b_bound;
 	float l_bound;
 	float r_bound;
 	float speed;

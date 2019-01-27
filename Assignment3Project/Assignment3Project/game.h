@@ -13,6 +13,7 @@
 #include "enums.h"
 #include "start_screen.h"
 #include "game_screen.h"
+#include "result_screen.h"
 
 //Game state machine, contains data global to game
 class Game {

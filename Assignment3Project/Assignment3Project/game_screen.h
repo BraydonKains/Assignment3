@@ -16,6 +16,7 @@ public:
 	int score;
 	int level;
 	bool music;
+	bool win;
 
 	int map_y;
 
@@ -33,5 +34,4 @@ public:
 private:
 	void play(ALLEGRO_SAMPLE_INSTANCE* x);
 	void build_enemy_queue();
-	void set_delays(std::map<std::string, InputDelay> inputs);
 };
