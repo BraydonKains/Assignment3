@@ -115,7 +115,52 @@ void ObjectManager::destroy_objects() {
 void ObjectManager::move_enemies() {
 	if (enemies.size() > 0) {
 		for (vector<Ship>::iterator it = enemies.begin(); it != enemies.end(); it++) {
-			(*it).move(D);
+			Direction dir;
+			if ((*it).behavior == Kamikaze) {
+				int x = (*it).x_pos;
+				int y = (*it).y_pos;
+				if (x > player.x_pos) {
+					if (y > player.y_pos) {
+						dir = UL;
+					}
+					else if (y == player.y_pos) {
+						dir = L;
+					}
+					else {
+						dir = DL;
+					}
+				}
+				else if (x < player.x_pos) {
+					if (y > player.y_pos) {
+						dir = UR;
+					}
+					else if (y == player.y_pos) {
+						dir = R;
+					}
+					else {
+						dir = DR;
+					}
+				}
+				else {
+					if (y > player.y_pos) {
+						dir = U;
+					}
+					else {
+						dir = D;
+					}
+				}
+			}
+			//Moves in a random direction
+			else if ((*it).behavior == Drunkard) {
+				int rand_dir = rand() % 3;
+				if(rand_dir == 0) dir = D;
+				else if(rand_dir == 1) dir = DL;
+				else dir = DR;
+			}
+			else {
+				dir = D;
+			}
+			(*it).move(dir);
 		}
 	}
 }

@@ -13,17 +13,7 @@ void Ship::set_props(ALLEGRO_BITMAP* _sprite, Behavior _behavior) {
 	behavior = _behavior;
 	oob = false;
 	switch (behavior) {
-	case Enemy:
-		speed = 1.1;
-		height = 40;
-		width = 40;
-
-		l_bound = SCREEN_L_B;
-		r_bound = SCREEN_R_B;
-		h_t_bound = 0 - height;
-		h_b_bound = SCREEN_H + height;
-		break;
-	default:
+	case Player:
 		speed = 1.0;
 		height = 40;
 		width = 40;
@@ -33,6 +23,36 @@ void Ship::set_props(ALLEGRO_BITMAP* _sprite, Behavior _behavior) {
 		r_bound -= width;
 		h_t_bound = 0;
 		h_b_bound = SCREEN_H - height;
+		break;
+	case Kamikaze:
+		speed = 0.8;
+		height = 40;
+		width = 40;
+
+		l_bound = SCREEN_L_B;
+		r_bound = SCREEN_R_B;
+		h_t_bound = 0 - height;
+		h_b_bound = SCREEN_H + height;
+		break;
+	case Drunkard:
+		speed = 1.8;
+		height = 40;
+		width = 40;
+
+		l_bound = SCREEN_L_B;
+		r_bound = SCREEN_R_B;
+		h_t_bound = 0 - height;
+		h_b_bound = SCREEN_H + height;
+		break;
+	default:
+		speed = 1.1;
+		height = 40;
+		width = 40;
+
+		l_bound = SCREEN_L_B;
+		r_bound = SCREEN_R_B;
+		h_t_bound = 0 - height;
+		h_b_bound = SCREEN_H + height;
 		break;
 	}
 }

@@ -243,7 +243,9 @@ void GameScreen::run(ALLEGRO_FONT* font) {
 				int enemy_chance = rand() % 80; //1 in 20 chance to generate an enemy
 				if (enemy_chance == 4) {
 					Ship new_e;
-					new_e.set_props(sprites["Enemy"], Enemy);
+					Behavior new_b = static_cast<Behavior>(rand() % Drunkard);
+					if (new_b == Player) new_b = Drunkard;
+					new_e.set_props(sprites["Enemy"], new_b);
 					new_e.reset_pos(rand() % ((SCREEN_R_B - (int)new_e.width) - SCREEN_L_B + 1) + SCREEN_L_B, 0 - new_e.height + 1);
 					objects.enemies.push_back(new_e);
 				}

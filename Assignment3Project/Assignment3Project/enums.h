@@ -28,7 +28,9 @@ enum Direction {
 
 enum Behavior {
 	Player,
-	Enemy
+	Enemy,
+	Kamikaze,
+	Drunkard
 };
 
 enum BgLayer {
