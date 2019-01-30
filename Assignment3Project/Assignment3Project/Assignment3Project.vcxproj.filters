@@ -101,11 +101,11 @@
     <ClCompile Include="result_screen.cpp">
       <Filter>Source Files\ScreensImplement</Filter>
     </ClCompile>
-    <ClCompile Include="star.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="help_screen.cpp">
       <Filter>Source Files\ScreensImplement</Filter>
+    </ClCompile>
+    <ClCompile Include="star.cpp">
+      <Filter>Source Files\Assignment3Implement</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

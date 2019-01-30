@@ -4,11 +4,12 @@
 #include "game_element.h"
 #include "bullet.h"
 
+//Ship sprite displayed over background
 class Ship : public GameElement {
 public:
-	ALLEGRO_BITMAP* sprite;
+	ALLEGRO_BITMAP* sprite; //loads a sprite rather than a primitive
 
-	bool fired;
+	bool fired; //no longer used
 	
 	Ship();
 
@@ -18,7 +19,6 @@ public:
 	void move(Direction dir);
 	Hitbox get_hitbox();
 
-	//unique to object
-	void set_props(ALLEGRO_BITMAP* _sprite, Behavior _behavior);
-	Bullet fire();
+	void set_props(ALLEGRO_BITMAP* _sprite, Behavior _behavior); //Sets ship properties
+	Bullet fire(); //Creates a new bullet
 };

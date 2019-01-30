@@ -12,6 +12,7 @@ void Ship::set_props(ALLEGRO_BITMAP* _sprite, Behavior _behavior) {
 	sprite = _sprite;
 	behavior = _behavior;
 	oob = false;
+	//Build properties based on behavior
 	switch (behavior) {
 	case Enemy:
 		speed = 1.1;
@@ -74,6 +75,8 @@ void Ship::move(Direction dir) {
 		break;
 	}
 
+	//Check screen boundaries
+	//The player must be kept within the boundaries, but other objects must be set as oob so they can be unloaded
 	if (x_pos <= l_bound) {
 		if (behavior == Player) {
 			x_pos = l_bound;

@@ -3,10 +3,9 @@
 #include "cursor.h"
 #include <string>
 
-//Screen to display results upon losing
+//Screen to display help menu
 class HelpScreen : public Screen {
 public:
-	std::map<std::string, ALLEGRO_BITMAP*> sprites;
 	Cursor<std::string> menu;
 
 	HelpScreen();

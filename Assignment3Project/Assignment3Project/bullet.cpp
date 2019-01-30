@@ -2,6 +2,7 @@
 
 Bullet::Bullet(Behavior _behavior) {
 	behavior = _behavior;
+	//Build properties based on behavior
 	switch (behavior) {
 	case Enemy:
 		speed = 1.0;
@@ -38,6 +39,7 @@ void Bullet::move(Direction dir) {
 		y_pos += 6;
 		break;
 	}
+	//Only player bullets are used currently so only player bullet bound is checked
 	if (y_pos < 0 - height) {
 		oob = true;
 	}

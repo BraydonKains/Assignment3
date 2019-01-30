@@ -120,9 +120,11 @@ void ObjectManager::move_enemies() {
 	}
 }
 
+//Initialize background stars
 void ObjectManager::set_background() {
 	for (int i = 0; i < 20; i++) {
-		Star new_star;
+		//Pick random layer and position
+		Star new_star; 
 		int l = rand() % 2;
 		BgLayer layer;
 		switch (l) {
@@ -171,10 +173,13 @@ void ObjectManager::move_background() {
 	}
 }
 
+//Check if the hitboxes are overlapping
 bool ObjectManager::col_eval(Hitbox h1, Hitbox h2) {
+	//Check if one hitbox is within the other's width
 	if (h1.x > (h2.x + h2.width) || h2.x > (h1.x + h1.width))
 		return false;
 
+	//Check if one hitbox is within the other's height
 	if (h1.y > (h2.y + h2.height) || h2.y > (h1.y + h1.height))
 		return false;
 

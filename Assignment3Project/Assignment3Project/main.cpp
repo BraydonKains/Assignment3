@@ -9,6 +9,7 @@
 #include "game.h"
 
 int main() {
+	//Initialize components and addons
 	if (!al_init()) {
 		fprintf(stderr, "Could not initialize Allegro!");
 	}
@@ -31,13 +32,16 @@ int main() {
 		fprintf(stderr, "Could not initialize primitives addon!");
 	}
 
+	//Create display
 	ALLEGRO_DISPLAY* display = NULL;
 	display = al_create_display(SCREEN_W, SCREEN_H);
 
+	//Run game
 	Game main_game;
 	main_game.init();
 	main_game.run();
 
+	//Garbage collection
 	al_uninstall_keyboard();
 	al_uninstall_audio();
 

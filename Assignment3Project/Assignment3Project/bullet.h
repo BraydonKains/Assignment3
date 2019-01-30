@@ -3,6 +3,7 @@
 
 #include "game_element.h"
 
+//Bullet fired by ships
 class Bullet : public GameElement {
 public:
 	Bullet(Behavior _behavior);

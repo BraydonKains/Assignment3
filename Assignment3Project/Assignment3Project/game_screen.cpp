@@ -10,7 +10,7 @@
 #include <map>
 #include <ctime>
 
-//#include "mappy_A5.h"
+//#include "mappy_A5.h" I couldn't get this to work
 
 #include "game_screen.h"
 #include "help_screen.h"
@@ -26,10 +26,12 @@ using std::map;
 using std::pair;
 using std::rand;
 
+//Keys that will be listener for in events
 enum KEYS {
 	KEYUP, KEYDOWN, KEYLEFT, KEYRIGHT, KEYSPACE, KEYCTRL, KEYH, KEYM, KEYESC
 };
 
+//Actions to manage
 enum ACTIONS {
 	FIRE, MUSIC, HELP
 };
@@ -63,6 +65,7 @@ void GameScreen::play(ALLEGRO_SAMPLE_INSTANCE* x) {
 	al_play_sample_instance(x);
 }
 
+//Builds enemy queue out of enemies txt file, possibly used later
 void GameScreen::build_enemy_queue() {
 	string line;
 	ifstream enemies_file("enemies.txt");
@@ -102,6 +105,7 @@ void GameScreen::run(ALLEGRO_FONT* font) {
 	NewEnemy next_enemy = enemy_q.back();
 	enemy_q.pop_back();
 
+	//Sets input delay structs
 	InputDelay inputs[3];
 	inputs[FIRE].input_hit = false;
 	inputs[FIRE].delay_sec = 0;
@@ -115,6 +119,7 @@ void GameScreen::run(ALLEGRO_FONT* font) {
 	inputs[HELP].delay_sec = 0;
 	inputs[HELP].max_delay = 80;
 
+	//Sets tilemap size and background data
 	int max_map = TILE_SIZE * LEVEL_LEN;
 	map_y = max_map;
 	objects.set_background();
@@ -122,6 +127,7 @@ void GameScreen::run(ALLEGRO_FONT* font) {
 	redraw(font);
 	al_flip_display();
 	
+	//key tracking array
 	bool keys[ALLEGRO_KEY_MAX];
 	for (int i = 0; i < ALLEGRO_KEY_MAX; i++) keys[i] = false;
 

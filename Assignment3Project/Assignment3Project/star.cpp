@@ -11,7 +11,8 @@ void Star::reset_pos(float x, float y) {
 
 void Star::set_layer(BgLayer _layer) {
 	layer = _layer;
-
+	//Set properties based on layer
+	//Scrolls at a different speed based on layer
 	switch (layer) {
 	case Front:
 		speed = 1.2;
